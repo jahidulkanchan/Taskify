@@ -14,10 +14,6 @@ const Navbar = () => {
     setIsHidden(!isHidden)
     setIsShow(false)
   }
-  // const handleToggleBar = () => {
-  //   setIsShow(!isShow)
-  //   setIsHidden(true)
-  // }
   const { user,signOutUser} = useAuth();
   const handleSignOutUser = ()=>{
     signOutUser()
@@ -113,7 +109,7 @@ const Navbar = () => {
             ) : (
               <div className={`${loading? 'opacity-0' : 'opacity-100'} flex gap-2 md:gap-5`}>
                 <Link className="border px-4 pb-1 rounded-full bg-[#5C49D8] text-white" to="/login">Log In</Link>
-                <Link className="border px-4 pb-1 rounded-full bg-[#5C49D8] text-white" to="/register">Register</Link>
+                {/* <Link className="border px-4 pb-1 rounded-full bg-[#5C49D8] text-white" to="/register">Register</Link> */}
               </div>
             )}
           </div>

@@ -5,7 +5,6 @@ import MainLayout from "./layouts/MainLayout.jsx";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import AuthProvider from "./authProvider/AuthProvider.jsx";
-import Register from "./pages/Register.jsx";
 import HomeLayout from "./layouts/HomeLayout.jsx";
 
 const router = createBrowserRouter([
@@ -20,10 +19,6 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
       },
     ],
     errorElement: <div className="min-h-screen text-xl flex flex-col justify-center items-center">

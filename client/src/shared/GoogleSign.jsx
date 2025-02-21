@@ -2,29 +2,40 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { FaGoogle } from "react-icons/fa6";
-// import useAxiosPublic from "../hooks/useAxiosPublic";
-
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const GoogleSign = () => {
   const {signWithGoogle} = useAuth()
   const navigate  = useNavigate()
-  // const axiosPublic = useAxiosPublic()
-  const handleSignGoogle = ()=>{
-    signWithGoogle()
-    .then(async() => {
-      // const userInfo = {
-      //   name: result.user?.displayName,
-      //   email: result.user?.email,
-      //   role: 'user'
-      // }
-      // await axiosPublic.post(`/users/${result.user?.email}`, userInfo)
-      
-      // .then((err) => {
-      //   console.log(err);
-      // })
-      navigate('/')
-    })
-  }
+  const axiosPublic = useAxiosPublic()
+
+  // Fetch users on mount
+  const handleSignGoogle = async () => {
+    try {
+      const result = await signWithGoogle();
+      const userInfo = {
+        name: result.user?.displayName,
+        email: result.user?.email,
+      };
+  
+      // Fetch existing users and check if the user already exists
+      const { data: existingUsers } = await axiosPublic.get("/users");
+  
+      const isUserExists = existingUsers.some(user => user.email === userInfo.email);
+  
+      if (!isUserExists) {
+        await axiosPublic.post("/users", userInfo);
+        console.log("New user added to the database.");
+      } else {
+        console.log("User already exists in the database.");
+      }
+  
+      navigate("/");
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+    }
+  };
+  
   return (
     <>
       <div
