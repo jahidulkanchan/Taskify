@@ -46,7 +46,7 @@ const Register = () => {
   return (
     <>
       <section
-        className={`flex container mx-auto flex-col justify-center items-center`}
+        className={`flex container bg-slate-50 mx-auto flex-col justify-center items-center`}
       >
         <h2 className="text-3xl text-center font-semibold mb-5 mt-[50px]">
           <span>Register to </span>
@@ -61,7 +61,7 @@ const Register = () => {
         </h2>
         <form
           onSubmit={handleSignUp}
-          className={`w-11/12 md:w-10/12 lg:w-8/12 py-8 flex flex-col justify-center items-center border space-y-4 shadow-md md:shadow-xl mx-auto rounded-xl md:mb-0 min-h-[350px]`}
+          className={`bg-white w-11/12 md:w-10/12 lg:w-8/12 py-8 flex flex-col justify-center items-center border space-y-4 shadow-md md:shadow-xl mx-auto rounded-xl md:mb-0 min-h-[350px]`}
         >
           <div className="grid gap-5 mx-5 sm:grid-cols-2">
             <div>

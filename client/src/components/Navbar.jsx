@@ -1,8 +1,7 @@
 import { useState } from "react";
 import logoIcon from "../assets/logo.png"
-import { FaBarsStaggered } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { MdOutlineLogout } from "react-icons/md";
 
@@ -15,10 +14,10 @@ const Navbar = () => {
     setIsHidden(!isHidden)
     setIsShow(false)
   }
-  const handleToggleBar = () => {
-    setIsShow(!isShow)
-    setIsHidden(true)
-  }
+  // const handleToggleBar = () => {
+  //   setIsShow(!isShow)
+  //   setIsHidden(true)
+  // }
   const { user,signOutUser} = useAuth();
   const handleSignOutUser = ()=>{
     signOutUser()
@@ -27,8 +26,8 @@ const Navbar = () => {
   }
   return (
     <>
-      <section className="shadow fixed left-0 w-full z-20 top-0 backdrop-blur bg-gray-50 bg-opacity-15 px-5 py-5">
-       <div className="container px-2 md:px-5  mx-auto">
+      <section className="shadow fixed left-0 w-full z-20 top-0 backdrop-blur bg-gray-50 bg-opacity-15 px-5 py-2">
+       <div className="container px-0 md:px-5  mx-auto">
        <nav className="flex justify-between items-center">
           <div>
             <Link className={`logo flex items-center`} to="/">
@@ -98,34 +97,34 @@ const Navbar = () => {
               }
             </ul>
           </div> */}
-          <div className="user-info flex gap-5 items-center">
+          <div className="user-info flex gap-5 items-center font-medium">
             {user ? (
-              <div className={`flex-col bg-white lg:bg-transparent absolute lg:static w-full lg:fit left-0 top-[75px] py-5 lg:py-0 gap-5 lg:flex-row justify-center lg:gap-4 items-center ${!isHidden ? 'flex' : 'hidden lg:flex'} `}>
+              <div className={`flex-col bg-slate-50 lg:bg-transparent absolute lg:static w-full lg:fit left-0 top-[48px] py-5 lg:py-0 gap-5 lg:flex-row justify-center lg:gap-4 items-center ${!isHidden ? 'flex' : 'hidden lg:flex'} `}>
                 <div className="flex justify-center flex-col items-center">
-                  <img referrerPolicy="no-referrer" className="w-[80px] min-h-[80px] lg:min-h-[35px] rounded-full p-1 md:p-0 bg-white border lg:w-9" src={user?.photoURL} alt="" data-tooltip-id="my-tooltip" data-tooltip-content={user?.displayName} data-tooltip-tip="React-tooltip" />
+                  <img referrerPolicy="no-referrer" className="w-[80px] min-h-[80px] lg:min-h-[35px] rounded-full p-1 md:p-0 bg-white object-cover border lg:w-9" src={user?.photoURL} alt="" data-tooltip-id="my-tooltip" data-tooltip-content={user?.displayName} data-tooltip-tip="React-tooltip" />
                   <div onClick={()=> setIsHidden(true)} className="absolute lg:hidden top-5 border text-xl cursor-pointer lg:text-2xl bg-white hover:bg-slate-200 right-5"><RxCross1 /></div>
                 </div>
                 <button onClick={handleSignOutUser}
                 style={{
                   textShadow: "1px 1px 1px rgba(0, 0, 0, 0.1)",
                 }}
-                 className="px-3 flex items-center gap-2 rounded-full shadow text-sm py-2 bg-secondary font-medium">Log Out <MdOutlineLogout className="text-lg" /></button>
+                 className="px-3 border border-gray-400 bg-[#5C49D8] text-white cursor-pointer flex items-center gap-2 rounded-full shadow text-sm py-2 bg-secondary font-medium">Log Out <MdOutlineLogout className="text-lg" /></button>
               </div>
             ) : (
-              <div className={`${loading? 'opacity-0' : 'opacity-100'} flex gap-4 md:gap-8 font-medium `}>
-                <Link to="/login">Log In</Link>
-                <Link to="/register">Register</Link>
+              <div className={`${loading? 'opacity-0' : 'opacity-100'} flex gap-2 md:gap-5`}>
+                <Link className="border px-4 pb-1 rounded-full bg-[#5C49D8] text-white" to="/login">Log In</Link>
+                <Link className="border px-4 pb-1 rounded-full bg-[#5C49D8] text-white" to="/register">Register</Link>
               </div>
             )}
           </div>
           <div className="bar-icon flex items-center gap-4  ml-1 z-20 cursor-pointer lg:hidden text-xl">
           {user && <div title="User Details" onClick={handleToggleUser} className={`w-8 border overflow-hidden rounded-full bg-slate-50 inline-block lg:hidden`}>
-            <img className="min-h-[30px]" src={user?.photoURL} alt="" />
+            <img className="min-h-[30px] object-cover" src={user?.photoURL} alt="photoURL" />
           </div>
           }
-          <div className={`${!isShow? '' : 'text-secondary'}`} onClick={handleToggleBar}>
+          {/* <div className={`${!isShow? '' : 'text-secondary'}`} onClick={handleToggleBar}>
           {isShow? <RxCross1 />: <FaBarsStaggered />}
-          </div>
+          </div> */}
           </div>
         </nav>
        </div>
