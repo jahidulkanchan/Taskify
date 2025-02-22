@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["https://taskifypage.netlify.app", "http://localhost:5173"],
+    credentials: true, // If needed for authentication cookies
   })
 );
 
@@ -30,60 +31,88 @@ async function run() {
     await client.connect();
     console.log("Connected to MongoDB!");
 
-    const usersCollection = client.db("taskManageDB").collection("users");
-    const tasksCollection = client.db("taskManageDB").collection("tasks");
+    const db = client.db("taskManageDB");
+    const usersCollection = db.collection("users");
+    const tasksCollection = db.collection("tasks");
 
     // Routes
     app.post("/users", async (req, res) => {
-      const user = req.body;
-      const result = await usersCollection.insertOne(user);
-      res.send(result);
+      try {
+        const user = req.body;
+        const result = await usersCollection.insertOne(user);
+        res.status(201).send(result);
+      } catch (error) {
+        res.status(500).send({ error: "Failed to add user" });
+      }
     });
 
     app.get("/users", async (req, res) => {
-      const result = await usersCollection.find().toArray();
-      res.send(result);
+      try {
+        const result = await usersCollection.find().toArray();
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ error: "Failed to fetch users" });
+      }
     });
 
     app.post("/tasks", async (req, res) => {
-      const task = req.body;
-      const result = await tasksCollection.insertOne(task);
-      res.send(result);
+      try {
+        const task = req.body;
+        const result = await tasksCollection.insertOne(task);
+        res.status(201).send(result);
+      } catch (error) {
+        res.status(500).send({ error: "Failed to create task" });
+      }
     });
 
     app.get("/tasks", async (req, res) => {
-      const result = await tasksCollection.find({}).toArray();
-      res.send(result);
+      try {
+        const result = await tasksCollection.find({}).toArray();
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ error: "Failed to fetch tasks" });
+      }
     });
 
     app.delete("/tasks/:id", async (req, res) => {
-      const id = req.params.id;
-      const result = await tasksCollection.deleteOne({ _id: new ObjectId(id) });
-      res.send(result);
+      try {
+        const id = req.params.id;
+        const result = await tasksCollection.deleteOne({ _id: new ObjectId(id) });
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ error: "Failed to delete task" });
+      }
     });
 
     app.put("/tasks/:id", async (req, res) => {
-      const id = req.params.id;
-      const updatedTask = req.body;
-      const query = { _id: new ObjectId(id) };
-      const updateDoc = {
-        $set: {
-          title: updatedTask.title || "",
-          description: updatedTask.description || "",
-          category: updatedTask.category,
-        },
-      };
-      const result = await tasksCollection.updateOne(query, updateDoc);
-      res.send(result);
+      try {
+        const id = req.params.id;
+        const updatedTask = req.body;
+        const query = { _id: new ObjectId(id) };
+        const updateDoc = {
+          $set: {
+            title: updatedTask.title || "",
+            description: updatedTask.description || "",
+            category: updatedTask.category,
+          },
+        };
+        const result = await tasksCollection.updateOne(query, updateDoc);
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ error: "Failed to update task" });
+      }
     });
+
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
 }
 run().catch(console.dir);
 
+// Root route
 app.get("/", (req, res) => {
   res.send("Server is running...");
 });
 
+// Start the server
 app.listen(port, () => console.log(`Server running on port ${port}`));

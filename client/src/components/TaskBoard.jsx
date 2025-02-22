@@ -234,7 +234,7 @@ const TaskItem = ({ task, handleEdit, handleDelete }) => {
   return (
     <div
       ref={drag}
-      className={`p-5 bg-white shadow-lg rounded-lg flex justify-between items-center transition-all duration-300 ${
+      className={`p-5 bg-white shadow-lg mt-5 rounded-lg flex justify-between items-center transition-all duration-300 ${
         isDragging ? "opacity-50 scale-95" : "hover:shadow-xl"
       }`}
     >

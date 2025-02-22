@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { MdOutlineLogout } from "react-icons/md";
+import { MdOutlineLogout, MdClose } from "react-icons/md";
 import logoIcon from "../assets/logo.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, loading, signOutUser } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
+  useEffect(() => {
+    setShowMenu(false);
+  }, [user]);
 
   const handleSignOut = () => {
     signOutUser();
@@ -36,9 +39,14 @@ const Navbar = () => {
 
               {showMenu && (
                 <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-3">
-                  <div className="flex items-center gap-3 border-b pb-3">
-                    <img src={user?.photoURL} alt="User" className="w-12 h-12 rounded-full border" />
-                    <p className="text-sm font-medium">{user?.displayName}</p>
+                  <div className="flex items-center justify-between border-b pb-3">
+                    <div className="flex items-center gap-3">
+                      <img src={user?.photoURL} alt="User" className="w-12 h-12 rounded-full border" />
+                      <p className="text-sm font-medium">{user?.displayName}</p>
+                    </div>
+                    <button onClick={() => setShowMenu(false)} className="text-gray-600 hover:text-gray-900">
+                      <MdClose size={20} />
+                    </button>
                   </div>
                   <button
                     onClick={handleSignOut}
