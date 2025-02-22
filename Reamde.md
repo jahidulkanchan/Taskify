@@ -4,6 +4,7 @@
 [Taskify](https://taskifypage.netlify.app)
 
 ## Features
+
 - Google Sign-in (Firebase Authentication)
 - Add, edit, delete, and reorder tasks
 - Drag-and-drop for task management
