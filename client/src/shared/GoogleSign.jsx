@@ -20,16 +20,12 @@ const GoogleSign = () => {
   
       // Fetch existing users and check if the user already exists
       const { data: existingUsers } = await axiosPublic.get("/users");
-  
-      const isUserExists = existingUsers.some(user => user.email === userInfo.email);
-  
+      const isUserExists = existingUsers?.some(user => user?.email === userInfo?.email);
       if (!isUserExists) {
         await axiosPublic.post("/users", userInfo);
-        console.log("New user added to the database.");
       } else {
         console.log("User already exists in the database.");
       }
-  
       navigate("/");
     } catch (error) {
       console.error("Error signing in with Google:", error);

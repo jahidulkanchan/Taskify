@@ -32,67 +32,6 @@ const Navbar = () => {
               Taskify</h3>
             </Link>
           </div>
-          {/* <div className="menu lg:bg-white lg:shadow-sm lg:px-5 md:py-2 lg:rounded-md">
-            <ul className={`lg:flex w-full text-sm text-center z-10 py-5 lg:py-0 lg:bg-transparent space-y-5 lg:space-y-0 left-0 right-0 mx-auto absolute lg:static flex-col justify-center lg:flex-row gap-5 items-center top-[70px] md:top-[80px]  ${isShow? 'block bg-white' : 'hidden'}`}>
-              <li onClick={()=>{
-                setIsShow(!isShow)
-                window.scrollTo(0,0)
-              }}>
-                <NavLink
-                  className={({ isActive }) =>
-                    `${isActive ? "text-secondary" : ""} hover:text-secondary duration-100 flex justify-center items-center gap-1`
-                  }
-                  to="/">Home</NavLink></li>
-              {user && 
-                <li onClick={()=>{
-                  setIsShow(!isShow)
-                  window.scrollTo(0,0)
-                }}>
-                  <NavLink
-                    className={({ isActive }) =>
-                      `${isActive ? "text-secondary" : ""} hover:text-secondary duration-100 flex justify-center items-center gap-1`
-                    }
-                    to="/add-blog"
-                  >Add Blog</NavLink>
-                </li>
-              }
-              <li onClick={()=>{
-                setIsShow(!isShow)
-                window.scrollTo(0,0)
-              }}>
-                <NavLink
-                  className={({ isActive }) =>
-                    `${isActive ? "text-secondary" : ""} hover:text-secondary duration-100 flex justify-center items-center gap-1`
-                  }
-                  to="/all-blogs"
-                >All blogs</NavLink>
-              </li>
-              <li onClick={()=>{
-                setIsShow(!isShow)
-                window.scrollTo(0,0)
-              }}>
-                <NavLink
-                  className={({ isActive }) =>
-                    `${isActive ? "text-secondary" : ""} hover:text-secondary duration-100 flex justify-center items-center gap-1`
-                  }
-                  to="/features"
-                >Featured Blogs</NavLink>
-              </li>
-              {user && 
-                <li onClick={()=>{
-                  setIsShow(!isShow)
-                  window.scrollTo(0,0)
-                }}>
-                  <NavLink
-                    className={({ isActive }) =>
-                      `${isActive ? "text-secondary" : ""} hover:text-secondary duration-100 flex justify-center items-center gap-1`
-                    }
-                    to="/wishlist"
-                  >Wishlist</NavLink>
-                </li>
-              }
-            </ul>
-          </div> */}
           <div className="user-info flex gap-5 items-center font-medium">
             {user ? (
               <div className={`flex-col bg-slate-50 lg:bg-transparent absolute lg:static w-full lg:fit left-0 top-[48px] py-5 lg:py-0 gap-5 lg:flex-row justify-center lg:gap-4 items-center ${!isHidden ? 'flex' : 'hidden lg:flex'} `}>
@@ -109,7 +48,6 @@ const Navbar = () => {
             ) : (
               <div className={`${loading? 'opacity-0' : 'opacity-100'} flex gap-2 md:gap-5`}>
                 <Link className="border px-4 pb-1 rounded-full bg-[#5C49D8] text-white" to="/login">Log In</Link>
-                {/* <Link className="border px-4 pb-1 rounded-full bg-[#5C49D8] text-white" to="/register">Register</Link> */}
               </div>
             )}
           </div>
@@ -118,9 +56,6 @@ const Navbar = () => {
             <img className="min-h-[30px] object-cover" src={user?.photoURL} alt="photoURL" />
           </div>
           }
-          {/* <div className={`${!isShow? '' : 'text-secondary'}`} onClick={handleToggleBar}>
-          {isShow? <RxCross1 />: <FaBarsStaggered />}
-          </div> */}
           </div>
         </nav>
        </div>
