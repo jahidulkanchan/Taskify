@@ -15,7 +15,7 @@
 ## Installation
 ```sh
 git clone https://github.com/jahidulkanchan/Taskify
-cd task-management-app
+cd Taskify
 ```
 ### Backend Setup
 ```sh
