@@ -6,9 +6,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { FaTrash, FaEdit } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md"; // New delete icon
 import { format } from "date-fns";
-
 
 const ItemType = "TASK";
 
@@ -98,32 +98,42 @@ const TaskBoard = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <section className="container min-h-screen mx-auto p-6 bg-slate-100">
-        <form
-          className="w-full md:w-1/2 mx-auto p-4 bg-white shadow rounded"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <input
-            {...register("title")}
-            maxLength={50}
-            required
-            placeholder="Task Title"
-            className="border p-2 w-full mb-2"
-          />
-          <textarea
-            {...register("description")}
-            maxLength={500}
-            required
-            placeholder="Task Description"
-            className="border p-2 w-full mb-2"
-            rows="3"
-          />
-          <button
-            type="submit"
-            className="bg-primary text-white p-2 rounded w-full"
-          >
-            Add Task
-          </button>
-        </form>
+      <form
+  className="w-full md:w-1/2 mx-auto p-6 bg-white bg-opacity-80 backdrop-blur-lg shadow-lg rounded-xl border border-gray-200"
+  onSubmit={handleSubmit(onSubmit)}
+>
+  <h2 className="text-2xl font-bold text-center bg-gradient-to-r from-purple-600 to-indigo-500 bg-clip-text text-transparent mb-4">
+    Add a New Task
+  </h2>
+
+  {/* Title Input */}
+  <input
+    {...register("title")}
+    maxLength={50}
+    required
+    placeholder="Task Title"
+    className="border border-gray-300 p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 mb-3 shadow-sm"
+  />
+
+  {/* Description Input */}
+  <textarea
+    {...register("description")}
+    maxLength={500}
+    required
+    placeholder="Task Description"
+    className="border border-gray-300 p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 mb-3 shadow-sm"
+    rows="3"
+  />
+
+  {/* Submit Button */}
+  <button
+    type="submit"
+    className="w-full py-3 px-4 text-white font-semibold rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-purple-600 hover:to-indigo-600 shadow-md transition-transform transform hover:scale-105"
+  >
+    Add Task
+  </button>
+</form>
+
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
           {["To-Do", "In Progress", "Done"].map((category) => (
@@ -224,24 +234,29 @@ const TaskItem = ({ task, handleEdit, handleDelete }) => {
   return (
     <div
       ref={drag}
-      className={`p-4 bg-gray-100 rounded-md mb-2 flex justify-between ${
-        isDragging ? "opacity-50" : ""
+      className={`p-5 bg-white shadow-lg rounded-lg flex justify-between items-center transition-all duration-300 ${
+        isDragging ? "opacity-50 scale-95" : "hover:shadow-xl"
       }`}
     >
+      {/* Task Info */}
       <div>
-        <h3 className="text-lg font-semibold">{task.title}</h3>
-        <p className="text-sm text-gray-600">{task.description}</p>
-        <p className="text-xs text-gray-500">
+        <h3 className="text-lg font-bold bg-gradient-to-r from-purple-600 to-indigo-500 bg-clip-text text-transparent">
+          {task.title}
+        </h3>
+        <p className="text-sm text-gray-600 mt-1">{task.description}</p>
+        <p className="text-xs text-gray-500 mt-1">
           {format(new Date(task.date), "PPP p")}
         </p>
       </div>
-      <div className="flex gap-2">
+
+      {/* Action Buttons */}
+      <div className="flex gap-3">
         <FaEdit
-          className="text-blue-500 cursor-pointer"
+          className="text-indigo-500 text-xl cursor-pointer transition-transform transform hover:scale-110"
           onClick={() => handleEdit(task)}
         />
-        <FaTrash
-          className="text-red-500 cursor-pointer"
+        <MdDeleteForever
+          className="text-red-600 text-2xl cursor-pointer transition-transform transform hover:scale-110"
           onClick={() => handleDelete(task._id)}
         />
       </div>
